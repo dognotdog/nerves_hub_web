@@ -24,8 +24,8 @@ config :nerves_hub_device, NervesHubDeviceWeb.Endpoint, server: true
 config :nerves_hub_web_core,
   allow_signups?: true,
   enable_workers: true,
-  firmware_upload: NervesHubWebCore.Firmwares.Upload.S3,
-  host: "www.nerves-hub.org",
+  firmware_upload: NervesHubWebCore.Firmwares.Upload.File,
+  host: "hub.airvizinc.com",
   port: 80
 
 config :nerves_hub_web_core, NervesHubWebCore.Mailer,
