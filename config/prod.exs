@@ -42,4 +42,12 @@ config :nerves_hub_web_core, NervesHubWebCore.Repo, pool_size: 20
 config :nerves_hub_www, NervesHubWWWWeb.Endpoint,
   load_from_system_env: true,
   server: true,
+  https: [
+    port: 443,
+    otp_app: :nerves_hub_www,
+    keyfile:    "/etc/letsencrypt/live/hub.airvizinc.com/privkey.pem",
+    cacertfile: "/etc/letsencrypt/live/hub.airvizinc.com/chain.pem",
+    certfile:   "/etc/letsencrypt/live/hub.airvizinc.com/cert.pem",
+  ],
+#  debug_errors: true,
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
