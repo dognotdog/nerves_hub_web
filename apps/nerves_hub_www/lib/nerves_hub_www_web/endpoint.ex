@@ -22,7 +22,7 @@ defmodule NervesHubWWWWeb.Endpoint do
     at: "/",
     from: :nerves_hub_www,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt .well-known)
   )
 
   file_upload_config =
