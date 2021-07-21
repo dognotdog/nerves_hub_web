@@ -31,13 +31,13 @@ else
   config :rollbax, enabled: false
 end
 
-config :nerves_hub_web_core, NervesHubWebCore.Firmwares.Upload.S3,
-  bucket: System.fetch_env!("S3_BUCKET_NAME")
+#config :nerves_hub_web_core, NervesHubWebCore.Firmwares.Upload.S3,
+#  bucket: System.fetch_env!("S3_BUCKET_NAME")
 
-config :nerves_hub_web_core, NervesHubWebCore.Workers.FirmwaresTransferS3Ingress,
-  bucket: System.fetch_env!("S3_LOG_BUCKET_NAME")
+#config :nerves_hub_web_core, NervesHubWebCore.Workers.FirmwaresTransferS3Ingress,
+#  bucket: System.fetch_env!("S3_LOG_BUCKET_NAME")
 
-config :ex_aws, region: System.fetch_env!("AWS_REGION")
+# config :ex_aws, region: System.fetch_env!("AWS_REGION")
 
 config :nerves_hub_www, NervesHubWWWWeb.Endpoint,
   secret_key_base: System.fetch_env!("SECRET_KEY_BASE"),
