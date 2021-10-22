@@ -9,16 +9,19 @@ defmodule NervesHubAPIWeb.Plugs.User do
   end
 
   def call(conn, _opts) do
+    require Logger
     conn
     |> Plug.Conn.get_peer_data()
     |> Map.get(:ssl_cert)
     |> case do
       nil ->
+        Logger.error("#{__MODULE__} error getting user ssl_cert from plug: #{inspect(Plug.Conn.get_peer_data(conn))}")
         nil
 
       cert ->
         cert = X509.Certificate.from_der!(cert)
         serial = Certificate.get_serial_number(cert)
+        Logger.debug("#{__MODULE__} user cert: #{inspect({cert, serial})}")
         Accounts.get_user_certificate_by_serial(serial)
     end
     |> case do
@@ -29,9 +32,7 @@ defmodule NervesHubAPIWeb.Plugs.User do
         conn
         |> assign(:user, user)
 
-      error ->
-        require Logger
-        Logger.debug("#{__MODULE__} error verifying user cert: #{inspect(error)}")
+      _error ->
         conn
         |> put_resp_header("content-type", "application/json")
         |> send_resp(403, Jason.encode!(%{status: "forbidden"}))
