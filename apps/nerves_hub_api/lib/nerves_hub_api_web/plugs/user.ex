@@ -29,7 +29,9 @@ defmodule NervesHubAPIWeb.Plugs.User do
         conn
         |> assign(:user, user)
 
-      _error ->
+      error ->
+        require Logger
+        Logger.debug("#{__MODULE__} error verifying user cert: #{inspect(error)}")
         conn
         |> put_resp_header("content-type", "application/json")
         |> send_resp(403, Jason.encode!(%{status: "forbidden"}))
